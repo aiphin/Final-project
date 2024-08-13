@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate PDF</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Translate PDF</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.pdf_file.label_tag }}
+                {{ form.pdf_file }}
+                {% if form.pdf_file.errors %}
+                    <div class="error">{{ form.pdf_file.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.direction.label_tag }}
+                {{ form.direction }}
+                {% if form.direction.errors %}
+                    <div class="error">{{ form.direction.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn">Translate</button>
+        </form>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

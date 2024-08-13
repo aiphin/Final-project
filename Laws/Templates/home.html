@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblior - Home</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+<body>
+    <nav>
+        <div class="logo">Biblior</div>
+        <ul>
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="{% url 'translate' %}">TRANSLATE</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1>Translate words, phrases, sentences, documents or even books</h1>
+        <p>Freely over the top 10 spoken languages in the world. Search for already translated books here.</p>
+        <button>Search Books</button>
+    </div>
+</body>
+</html>
