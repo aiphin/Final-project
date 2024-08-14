@@ -3,22 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblior - Home</title>
-    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <title>Jabatan Peguam Negara - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <nav>
-        <div class="logo">Biblior</div>
+        <div class="logo">
+            <img src="{% static 'images/jata negara.png' %}" alt="Jata Negara">
+            <span>Jabatan Peguam Negara</span>
+        </div>
         <ul>
-            <li><a href="{% url 'home' %}">HOME</a></li>
-            <li><a href="{% url 'translate' %}">TRANSLATE</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="translate/">Translate</a></li>
         </ul>
     </nav>
 
-    <div class="content">
-        <h1>Translate words, phrases, sentences, documents or even books</h1>
-        <p>Freely over the top 10 spoken languages in the world. Search for already translated books here.</p>
-        <button>Search Books</button>
+    <div class="header-image">
+        <img src="{% static 'images/agc.jpg' %}" alt="AGC">
+        <div class="header-overlay">
+            <h1 class="header-title">Access Legal Documents Seamlessly</h1>
+        </div>
     </div>
+
+    <div class="content">
+        <div class="content-text">
+            <h2>Making Legal Documents Accessible to All</h2>
+            <p>
+                Easily search for legal acts and documents in both Malay and English. 
+                If the document exists only in English, we'll automatically translate your search terms to ensure you find what you need.
+            </p>
+            <button class="translate-button">Translate Now</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Jabatan Peguam Negara. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
+

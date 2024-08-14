@@ -1,2 +1,39 @@
-<h2>Translation Successful</h2>
-<p>Your translated PDF has been saved.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Successful</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <img src="{% static 'images/jata negara.png' %}" alt="Jata Negara">
+            <span>Jabatan Peguam Negara</span>
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="content">
+        <div class="container">
+            <h2>Translation Successful</h2>
+            <p>Your translated PDF has been saved successfully.</p>
+            <p>You can now download your translated document by clicking the button below.</p>
+            <a href="{{ download_url }}" class="download-button">Download Translated Document</a>
+
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 Jabatan Peguam Negara. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+

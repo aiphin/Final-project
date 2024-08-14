@@ -1,0 +1,259 @@
+/* General Reset and Body Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f5f7fa;
+    line-height: 1.6;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #003366;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav .logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+/* Navigation Bar Links */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #e0e0e0;
+}
+
+/* Header Image and Overlay */
+.header-image {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    background-color: #002244;
+}
+
+.header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.header-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Content Section */
+.content {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.content-image {
+    flex: 1;
+}
+
+.content-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-right: 1px solid #f0f0f0;
+}
+
+.content-text {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-text h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    color: #003366;
+    font-weight: bold;
+}
+
+.content-text p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    line-height: 1.5em;
+    color: #666;
+}
+
+.translate-button {
+    background-color: #003366;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-self: start;
+}
+
+.translate-button:hover {
+    background-color: #002244;
+    transform: translateY(-3px);
+}
+
+/* Footer Section */
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+/* General Form Styles */
+.container {
+    width: 50%;
+    margin: 100px auto;  /* Adjusted margin to place form below the header */
+    padding: 40px 60px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    color: #333; /* Consistent text color */
+}
+
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #003366;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em; /* Consistent font size */
+}
+
+.form-group input[type="file"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+}
+
+.form-group .error {
+    color: red;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+/* Button Styles */
+.btn {
+    background-color: #003366;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #002244;
+    transform: translateY(-3px);
+}
+
+/* Adjustments for Small Screens */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin-top: 50px;
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-size: 1em;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 15px 0;
+    }
+}
+
+.download-button {
+    background-color: #003366;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.download-button:hover {
+    background-color: #002244;
+    transform: translateY(-3px);
+}
