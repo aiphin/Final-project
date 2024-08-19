@@ -15,7 +15,7 @@
         </div>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="translate/">Translate</a></li>
+            <li><a href="{% url 'translate_pdf' %}">Translate</a></li>
         </ul>
     </nav>
 
@@ -33,7 +33,9 @@
                 Easily search for legal acts and documents in both Malay and English. 
                 If the document exists only in English, we'll automatically translate your search terms to ensure you find what you need.
             </p>
-            <button class="translate-button">Translate Now</button>
+            <a href="{% url 'translate_pdf' %}">
+                <button class="translate-button">Translate Now</button>
+            </a>
         </div>
     </div>
 

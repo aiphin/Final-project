@@ -3,17 +3,9 @@ from deep_translator import GoogleTranslator
 from fpdf import FPDF
 from PIL import Image
 import io
+from django.http import FileResponse
 
 def extract_text_and_image_from_pdf(pdf_path):
-    """
-    Extract text and the first page's image from a PDF file using pdfplumber.
-
-    Args:
-        pdf_path (str): The path to the PDF file.
-
-    Returns:
-        tuple: Extracted text and the first page's image in bytes.
-    """
     text = ""
     first_image = None
     try:
@@ -37,17 +29,6 @@ def extract_text_and_image_from_pdf(pdf_path):
         return None, None
 
 def translate_text(text, src_lang, tgt_lang):
-    """
-    Translate text using Google Translator in chunks.
-
-    Args:
-        text (str): The text to be translated.
-        src_lang (str): Source language code.
-        tgt_lang (str): Target language code.
-
-    Returns:
-        str: Translated text.
-    """
     try:
         translator = GoogleTranslator(source=src_lang, target=tgt_lang)
         translated_text = ""
@@ -64,14 +45,6 @@ def translate_text(text, src_lang, tgt_lang):
         return None
 
 def save_text_and_image_to_pdf(text, image, output_path):
-    """
-    Save the translated text and the first page's image to a PDF file.
-
-    Args:
-        text (str): The translated text to be saved.
-        image (bytes): The image in bytes format.
-        output_path (str): The path where the output PDF will be saved.
-    """
     try:
         pdf = FPDF()
         pdf.add_page()
@@ -86,11 +59,9 @@ def save_text_and_image_to_pdf(text, image, output_path):
             aspect_ratio = image_width / image_height
 
             if aspect_ratio > 1:
-                # Landscape image
                 width = pdf_width
                 height = pdf_width / aspect_ratio
             else:
-                # Portrait image
                 width = pdf_height * aspect_ratio
                 height = pdf_height
 
@@ -116,3 +87,12 @@ def save_text_and_image_to_pdf(text, image, output_path):
         print(f"PDF saved as {output_path}")
     except Exception as e:
         print(f"Error saving PDF: {e}")
+
+def download_file_view(request):
+    file_path = request.GET.get('file_path')
+    try:
+        # Serve the file for download
+        return FileResponse(open(file_path, 'rb'), as_attachment=True)
+    except Exception as e:
+        print(f"Error serving file for download: {e}")
+        return None

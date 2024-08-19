@@ -15,7 +15,7 @@
             <span>Jabatan Peguam Negara</span>
         </div>
         <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
         </ul>
     </nav>
 
@@ -25,8 +25,8 @@
             <h2>Translation Successful</h2>
             <p>Your translated PDF has been saved successfully.</p>
             <p>You can now download your translated document by clicking the button below.</p>
-            <a href="{{ download_url }}" class="download-button">Download Translated Document</a>
-
+            <!-- Download Button -->
+            <a href="{{ download_url }}" class="download-button" download>Download Translated Document</a>
         </div>
     </div>
 
@@ -36,4 +36,3 @@
     </footer>
 </body>
 </html>
-
