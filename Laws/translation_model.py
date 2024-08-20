@@ -1,9 +1,11 @@
+import os
 import pdfplumber
 from deep_translator import GoogleTranslator
 from fpdf import FPDF
 from PIL import Image
 import io
 from django.http import FileResponse
+from django.conf import settings
 
 def extract_text_and_image_from_pdf(pdf_path):
     text = ""
@@ -44,7 +46,7 @@ def translate_text(text, src_lang, tgt_lang):
         print(f"Error during translation: {e}")
         return None
 
-def save_text_and_image_to_pdf(text, image, output_path):
+def save_text_and_image_to_pdf(text, image, output_filename):
     try:
         pdf = FPDF()
         pdf.add_page()
@@ -83,10 +85,14 @@ def save_text_and_image_to_pdf(text, image, output_path):
                     pdf.set_font("Arial", size=12)
                     pdf.multi_cell(0, 10, encoded_line)
         
+        # Define output path within the 'downloads' directory
+        output_path = os.path.join(settings.MEDIA_ROOT, 'downloads', output_filename)
         pdf.output(output_path)
         print(f"PDF saved as {output_path}")
+        return output_path
     except Exception as e:
         print(f"Error saving PDF: {e}")
+        return None
 
 def download_file_view(request):
     file_path = request.GET.get('file_path')
