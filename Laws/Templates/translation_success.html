@@ -24,6 +24,7 @@
         <div class="container">
             <h2>Translation Successful</h2>
             <p>Your translated PDF has been saved successfully.</p>
+            <p>Translation Accuracy (Raw BLEU Score): {{ bleu_score }}</p>
             <p>You can now download your translated document by clicking the button below.</p>
             <!-- Download Button -->
             <a href="{{ download_url }}" class="download-button" download>Download Translated Document</a>
@@ -36,3 +37,4 @@
     </footer>
 </body>
 </html>
+
