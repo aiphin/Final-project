@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Success - Jabatan Peguam Negara</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <img src="{% static 'images/jata_negara.png' %}" alt="Jata Negara">
+            <span>Jabatan Peguam Negara</span>
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="content">
+        <div class="container">
+            <h2>You have successfully logged out</h2>
+            <p>If you want to continue, please</p>
+            <!-- Added margin-top for spacing above the button -->
+            <div style="margin-top: 30px;">
+                <a href="{% url 'login' %}" class="btn">Log In here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 Jabatan Peguam Negara. All Rights Reserved.</p>
+    </footer>
+    <!-- this is final project -->
+</body>
+</html>

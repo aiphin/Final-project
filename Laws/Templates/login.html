@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Jabatan Peguam Negara</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <img src="{% static 'images/jata_negara.png' %}" alt="Jata Negara">
+            <span>Jabatan Peguam Negara</span>
+        </div>
+        <ul>
+            <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="content">
+        <div class="container">
+            <h2>Log In</h2>
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username <span class="required-asterisk">*</span></label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password <span class="required-asterisk">*</span></label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <div class="error">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="{% url 'signup' %}" class="nav-link">Sign Up here</a>.</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 Jabatan Peguam Negara. All Rights Reserved.</p>
+    </footer>
+    <!-- this is final project -->
+</body>
+</html>

@@ -129,7 +129,7 @@ nav ul li a:hover {
 }
 
 .content-text p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 30px;
     line-height: 1.5em;
     color: #666;
@@ -165,7 +165,7 @@ footer {
 /* General Form Styles */
 .container {
     width: 50%;
-    margin: 100px auto;  /* Adjusted margin to place form below the header */
+    margin: 100px auto; /* Adjusted margin to place form below the header */
     padding: 40px 60px;
     background-color: #fff;
     border-radius: 8px;
@@ -184,23 +184,38 @@ footer {
     color: #003366;
     display: block;
     margin-bottom: 10px;
-    font-size: 1.1em; /* Consistent font size */
+    font-size: 1.1em;
+    line-height: 1.3em; /* Ensure label and input text align */
 }
 
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
 .form-group input[type="file"],
 .form-group select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1em;
+    font-size: 1.1em; /* Adjust font size for input */
     color: #333;
+}
+
+.form-group .help-text {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
 }
 
 .form-group .error {
     color: red;
     margin-top: 5px;
     font-size: 0.9em;
+}
+
+.required-asterisk {
+    color: red; /* Change color to red */
+    font-weight: bold;
 }
 
 /* Button Styles */
@@ -213,6 +228,7 @@ footer {
     font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; /* Ensure no underline for <a> tags */
 }
 
 .btn:hover {
@@ -238,22 +254,3 @@ footer {
     }
 }
 
-.download-button {
-    background-color: #003366;
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
-    margin-top: 20px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-}
-
-.download-button:hover {
-    background-color: #002244;
-    transform: translateY(-3px);
-}

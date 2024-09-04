@@ -1,16 +1,23 @@
-# views.py
-
 from django.shortcuts import render, redirect
-from django.http import FileResponse, HttpResponse
-from .forms import TranslationForm
-from .translation_model import extract_text_and_image_from_pdf, translate_text, save_text_and_image_to_pdf
-import os
+from django.http import HttpResponse, FileResponse
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-import sacrebleu
+from django.urls import reverse
+import os
+import logging
+from .forms import TranslationForm, SignUpForm, LoginForm
+from .models import TranslatedPDF
+from .translation_model import extract_text_and_image_from_pdf, translate_text, save_text_and_image_to_pdf
+
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def translate_pdf_view(request):
     if request.method == 'POST':
         form = TranslationForm(request.POST, request.FILES)
@@ -19,114 +26,85 @@ def translate_pdf_view(request):
             direction = form.cleaned_data['direction']
             src_lang, tgt_lang = direction.split('-')
 
-            # Save the uploaded PDF
-            upload_path = os.path.join(settings.MEDIA_ROOT, 'uploads', pdf_file.name)
-            os.makedirs(os.path.dirname(upload_path), exist_ok=True)
-            with open(upload_path, 'wb+') as temp_file:
-                for chunk in pdf_file.chunks():
-                    temp_file.write(chunk)
+            # Save the uploaded PDF to 'uploads' directory
+            upload_dir = os.path.join(settings.MEDIA_ROOT, 'uploads')
+            os.makedirs(upload_dir, exist_ok=True)
+            fs = FileSystemStorage(location=upload_dir)
+            filename = fs.save(pdf_file.name, pdf_file)
+            uploaded_file_path = os.path.join(upload_dir, filename)
+
+            logger.info(f"Uploaded file saved at {uploaded_file_path}")
 
             # Extract text and image from the uploaded PDF
-            text, image = extract_text_and_image_from_pdf(upload_path)
+            text, image = extract_text_and_image_from_pdf(uploaded_file_path)
+            logger.info(f"Extracted text: {text[:100]}...")  # Log the first 100 characters
 
             # Translate the text
             translated_text = translate_text(text, src_lang, tgt_lang)
+            logger.info(f"Translated text: {translated_text[:100]}...")  # Log the first 100 characters
 
-            # Tokenize the reference and candidate texts
-            reference_texts = [text]  # List containing the original text
-            candidate_texts = [translated_text]  # List containing the translated text
+            # Save the translated text and image to a new PDF in the 'downloads' directory
+            base_filename = os.path.splitext(pdf_file.name)[0]
+            output_filename = f"{base_filename}_translated.pdf"
+            output_path = save_text_and_image_to_pdf(translated_text, image, output_filename)
 
-            # Calculate SacreBLEU score
-            bleu_score = sacrebleu.corpus_bleu(
-                candidate_texts,  # List of candidate texts
-                [reference_texts]  # List containing a list of reference texts
-            ).score
+            # Save to TranslatedPDF model
+            translated_pdf_instance = TranslatedPDF(
+                original_file=filename,
+                translated_file=output_filename,
+                src_lang=src_lang,
+                tgt_lang=tgt_lang
+            )
+            translated_pdf_instance.save()
 
-            # Save the translated text and image to a new PDF
-            output_filename = f"translated_{pdf_file.name}"
-            output_path = os.path.join(settings.MEDIA_ROOT, 'downloads', output_filename)
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            save_text_and_image_to_pdf(translated_text, image, output_path)
-
-            # Redirect to the success page with the file path and BLEU score
-            return redirect(f'/Laws/translation_success/?file_path={output_filename}&bleu_score={bleu_score:.2f}')
+            # Redirect with the download URL as a query parameter
+            download_url = f"{settings.MEDIA_URL}downloads/{output_filename}"
+            return redirect(f"{reverse('translation_success')}?download_url={download_url}")
+        else:
+            logger.error("Form is not valid")
     else:
         form = TranslationForm()
-
     return render(request, 'translate_pdf.html', {'form': form})
 
-def translation_success_view(request):
-    file_path = request.GET.get('file_path')
-    bleu_score = request.GET.get('bleu_score')
-    download_url = f"/Laws/download_file/?file_path={file_path}"
-    return render(request, 'translation_success.html', {'download_url': download_url, 'bleu_score': bleu_score})
-
+@login_required
 def download_file_view(request):
-    file_path = request.GET.get('file_path')
-    download_path = os.path.join(settings.MEDIA_ROOT, 'downloads', file_path)
-    try:
-        return FileResponse(open(download_path, 'rb'), as_attachment=True)
-    except Exception as e:
-        print(f"Error serving file for download: {e}")
-        return HttpResponse(f"Error serving file for download: {e}", status=500)
+    file_path = request.GET.get('file_path', None)
+    if file_path:
+        file_path = os.path.join(settings.MEDIA_ROOT, 'downloads', file_path)
+        if os.path.exists(file_path):
+            return FileResponse(open(file_path, 'rb'), as_attachment=True)
+    return redirect('home')
 
+def translation_success_view(request):
+    download_url = request.GET.get('download_url', None)
+    return render(request, 'translation_success.html', {'download_url': download_url})
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('signup_success')  # Redirect to the success page after signup
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
+def signup_success_view(request):
+    return render(request, 'signup_success.html')
 
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('translate_pdf')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-
-
-     # Now you can save `output_path` to your database if needed
-            # Example: Saving to a database model (assuming you have a Translation model)
-            # translation_instance = Translation.objects.create(
-            #     original_file=pdf_file.name,
-            #     translated_file=output_filename,
-            #     direction=direction
-            # )
-            # translation_instance.save()
+def logout_view(request):
+    logout(request)
+    return render(request, 'logout.html')
+#this is final project

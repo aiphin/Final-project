@@ -8,17 +8,19 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav>
         <div class="logo">
-            <img src="{% static 'images/jata negara.png' %}" alt="Jata Negara">
+            <img src="{% static 'images/jata_negara.png' %}" alt="Jata Negara">
             <span>Jabatan Peguam Negara</span>
         </div>
         <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'translate_pdf' %}">Translate</a></li>
+            <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            <li><a href="{% url 'signup' %}" class="nav-link">Sign In</a></li>
         </ul>
     </nav>
 
+    <!-- Header Image and Overlay -->
     <div class="header-image">
         <img src="{% static 'images/agc.jpg' %}" alt="AGC">
         <div class="header-overlay">
@@ -26,22 +28,26 @@
         </div>
     </div>
 
+    <!-- Content Section -->
     <div class="content">
         <div class="content-text">
             <h2>Making Legal Documents Accessible to All</h2>
             <p>
-                Easily search for legal acts and documents in both Malay and English. 
-                If the document exists only in English, we'll automatically translate your search terms to ensure you find what you need.
+                Our aim is to help user easily search for legal acts and documents in both Malay and English. 
+                If the document exists only in English, our portal can translate your document to ensure you find what you need.
             </p>
-            <a href="{% url 'translate_pdf' %}">
+            <a href="{% url 'signup' %}">
                 <button class="translate-button">Translate Now</button>
             </a>
         </div>
     </div>
 
+    <!-- Footer Section -->
     <footer>
         <p>© 2024 Jabatan Peguam Negara. All Rights Reserved.</p>
     </footer>
+    <!-- this is final project -->
 </body>
 </html>
+
 

@@ -11,11 +11,11 @@
         .hourglass {
             display: none; /* Hidden by default */
             margin: 20px auto;
-            width: 24px;
-            height: 24px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 4px solid #ccc;
-            border-top: 4px solid #003366;
+            border: 5px solid #ccc;
+            border-top: 5px solid #003366;
             animation: spin 1s linear infinite;
         }
 
@@ -24,15 +24,9 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Disable button during processing */
         .processing .btn {
             background-color: #ccc;
             cursor: not-allowed;
-        }
-
-        /* Ensure the form container is positioned below the navigation bar */
-        .content {
-            margin-top: 80px; /* Adjust this value as needed */
         }
     </style>
 </head>
@@ -40,12 +34,22 @@
     <!-- Navigation Bar -->
     <nav>
         <div class="logo">
-            <img src="{% static 'images/jata negara.png' %}" alt="Jata Negara">
+            <img src="{% static 'images/jata_negara.png' %}" alt="Jata Negara">
             <span>Jabatan Peguam Negara</span>
         </div>
         <ul>
             <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
-            
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+                </li>
+                <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display:none;">
+                    {% csrf_token %}
+                </form>
+            {% else %}
+                <li><a href="{% url 'signup' %}" class="nav-link">Signup</a></li>
+                <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -53,17 +57,17 @@
     <div class="content">
         <div class="container">
             <h2>Translate PDF</h2>
-            <form method="post" enctype="multipart/form-data" onsubmit="showHourglass()">
+            <form id="translateForm" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    {{ form.pdf_file.label_tag }}
+                    <label for="{{ form.pdf_file.id_for_label }}">Select a PDF file:</label>
                     {{ form.pdf_file }}
                     {% if form.pdf_file.errors %}
                         <div class="error">{{ form.pdf_file.errors }}</div>
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.direction.label_tag }}
+                    <label for="{{ form.direction.id_for_label }}">Translation Direction:</label>
                     {{ form.direction }}
                     {% if form.direction.errors %}
                         <div class="error">{{ form.direction.errors }}</div>
@@ -84,11 +88,20 @@
     </footer>
 
     <script>
-        function showHourglass() {
+        // Show the hourglass and submit the form after a short delay
+        document.getElementById('translateForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+
+            // Show the hourglass
             document.getElementById('hourglass').style.display = 'block';
             document.querySelector('.btn').classList.add('processing');
-        }
+
+            // Submit the form after a slight delay
+            setTimeout(() => {
+                event.target.submit();
+            }, 100); // 100ms delay to ensure the hourglass is shown
+        });
     </script>
+    <!-- this is final project -->
 </body>
 </html>
-

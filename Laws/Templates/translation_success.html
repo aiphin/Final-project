@@ -6,16 +6,46 @@
     <title>Translation Successful</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+        function logout(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            document.getElementById('logout-form').submit(); // Submit the form
+        }
+    </script>
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Added margin */
+        }
+
+        .btn:hover {
+            background-color: #002244;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav>
         <div class="logo">
-            <img src="{% static 'images/jata negara.png' %}" alt="Jata Negara">
+            <img src="{% static 'images/jata_negara.png' %}" alt="Jata Negara">
             <span>Jabatan Peguam Negara</span>
         </div>
         <ul>
             <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}" class="nav-link" onclick="logout(event)">Logout</a>
+                    <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
+                        {% csrf_token %}
+                    </form>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -24,10 +54,12 @@
         <div class="container">
             <h2>Translation Successful</h2>
             <p>Your translated PDF has been saved successfully.</p>
-            <p>Translation Accuracy (Raw BLEU Score): {{ bleu_score }}</p>
             <p>You can now download your translated document by clicking the button below.</p>
             <!-- Download Button -->
-            <a href="{{ download_url }}" class="download-button" download>Download Translated Document</a>
+            <a href="{{ download_url }}" class="btn" download>Download Translated Document</a>
+
+            <!-- Additional Text After Download Button -->
+            <p style="margin-top: 20px;">Would you like to <a href="{% url 'translate_pdf' %}" class="nav-link">translate another document</a> or <a href="{% url 'logout' %}" class="nav-link" onclick="logout(event)">logout</a>?</p>
         </div>
     </div>
 
@@ -35,6 +67,6 @@
     <footer>
         <p>© 2024 Jabatan Peguam Negara. All Rights Reserved.</p>
     </footer>
+    <!-- this is final project -->
 </body>
 </html>
-
