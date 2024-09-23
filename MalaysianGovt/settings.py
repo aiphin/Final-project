@@ -34,7 +34,7 @@ ROOT_URLCONF = 'MalaysianGovt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Laws', 'TEMPLATES')],
+        'DIRS': [os.path.join(BASE_DIR, 'Laws', 'Templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
