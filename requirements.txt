@@ -1,6 +1,6 @@
 Django==5.1
-gunicorn
-pdfplumber
+gunicorn==23.0.0
+pdfplumber==0.11.3
 deep-translator==1.11.4
 fpdf==1.7.2
-scikit-learn
+scikit-learn==1.5.2
