@@ -31,6 +31,7 @@ nav .logo img {
     margin-right: 10px;
 }
 
+/* Navigation Bar Links */
 nav ul {
     list-style: none;
     margin: 0;
@@ -42,28 +43,17 @@ nav ul li {
     margin-left: 20px;
 }
 
-.nav-link:link {
-    color: white;  /* Ensure the link text is white by default */
-    text-decoration: none;  /* Remove underline by default */
-    font-weight: bold;  /* Make the text bold */
+nav ul li a {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.nav-link:visited {
-    color: white;  /* Keep the link text white after it's visited */
-    text-decoration: underline;  /* Add underline when the link is visited */
-    font-weight: bold;  /* Keep the text bold after it's visited */
+nav ul li a:hover {
+    color: #e0e0e0;
 }
-
-.nav-link:hover {
-    color: #fff;  /* Keep the text color white on hover */
-    text-decoration: underline;  /* Add underline on hover */
-}
-
-.nav-link:active {
-    color: #fff;  /* Keep the link text white when clicked */
-}
-
 
 /* Header Image and Overlay */
 .header-image {
@@ -105,9 +95,9 @@ nav ul li {
 .content {
     display: flex;
     max-width: 1200px;
-    margin: -60px auto 0;
+    margin: 40px auto 0;
     background-color: white;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -139,7 +129,7 @@ nav ul li {
 }
 
 .content-text p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 30px;
     line-height: 1.5em;
     color: #666;
@@ -171,3 +161,96 @@ footer {
     margin-top: 40px;
     font-size: 0.9em;
 }
+
+/* General Form Styles */
+.container {
+    width: 50%;
+    margin: 100px auto; /* Adjusted margin to place form below the header */
+    padding: 40px 60px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    color: #333; /* Consistent text color */
+}
+
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #003366;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.3em; /* Ensure label and input text align */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="file"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1em; /* Adjust font size for input */
+    color: #333;
+}
+
+.form-group .help-text {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.form-group .error {
+    color: red;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+.required-asterisk {
+    color: red; /* Change color to red */
+    font-weight: bold;
+}
+
+/* Button Styles */
+.btn {
+    background-color: #003366;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; /* Ensure no underline for <a> tags */
+}
+
+.btn:hover {
+    background-color: #002244;
+    transform: translateY(-3px);
+}
+
+/* Adjustments for Small Screens */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin-top: 50px;
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-size: 1em;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 15px 0;
+    }
+}
+
