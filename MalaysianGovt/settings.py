@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'your-secret-key'
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','pdf-translate-using-django-1.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pdf-translate-using-django-1.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,14 +76,6 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-# Add WhiteNoise Middleware at the top of the middleware stack
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    # other middleware
-]
-
-# Define static file storage using WhiteNoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
